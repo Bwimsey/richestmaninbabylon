@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Richest Man in Babylon — Reading Scroll</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone-dark: #1a1208;
+    --stone-mid: #2c1f0a;
+    --stone-light: #3d2b10;
+    --stone-surface: #4a3418;
+    --gold: #c8962a;
+    --gold-bright: #e8b84b;
+    --gold-pale: #f0d080;
+    --gold-dim: #8a6518;
+    --amber: #d4832a;
+    --crack: #0d0a04;
+    --parchment: #6b4f1e;
+    --text-glow: rgba(232, 184, 75, 0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--stone-dark);
+    background-image:
+      radial-gradient(ellipse at 20% 10%, #2a1a05 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, #1e1304 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    font-family: 'IM Fell English', serif;
+    color: var(--gold);
+    overflow-x: hidden;
+  }
+
+  /* Stone texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.02) 3px,
+        rgba(0,0,0,0.02) 6px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: fadeDown 1.2s ease both;
+  }
+
+  .header-ornament {
+    font-size: 1.2rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  .header h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    color: var(--gold-bright);
+    text-shadow:
+      0 0 30px var(--text-glow),
+      0 0 60px rgba(200,150,42,0.2),
+      2px 2px 4px rgba(0,0,0,0.8);
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .header-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px auto;
+    max-width: 400px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+
+  .divider-gem {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px var(--text-glow);
+  }
+
+  /* ── PROGRESS STONE ── */
+  .progress-tablet {
+    background: linear-gradient(135deg, #3a2510 0%, #2a1a08 40%, #3d2b10 100%);
+    border: 2px solid var(--gold-dim);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow:
+      inset 0 0 40px rgba(0,0,0,0.5),
+      0 4px 20px rgba(0,0,0,0.6),
+      0 0 1px var(--gold-dim);
+    animation: fadeDown 1.4s ease 0.2s both;
+  }
+
+  .progress-tablet::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(200,150,42,0.15);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  /* Crack effects */
+  .progress-tablet::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 30%;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(0,0,0,0.4) 20%,
+      rgba(0,0,0,0.6) 40%,
+      transparent 60%
+    );
+    transform: rotate(2deg);
+    pointer-events: none;
+  }
+
+  .progress-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold-bright);
+    text-shadow: 0 0 20px var(--text-glow);
+    line-height: 1;
+  }
+
+  .stat-sub {
+    font-size: 0.7rem;
+    color: var(--gold-dim);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .progress-bar-wrap {
+    margin-top: 22px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--gold-dim);
+    border-radius: 2px;
+    height: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-bright));
+    transition: width 0.8s ease;
+    position: relative;
+  }
+
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 20px; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  }
+
+  .progress-label {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  /* ── CHAPTERS ── */
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chapter-tablet {
+    background: linear-gradient(135deg, #332210 0%, #221608 60%, #2e1e0a 100%);
+    border: 1px solid var(--gold-dim);
+    border-radius: 3px;
+    padding: 20px 22px;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.5);
+    animation: fadeUp 0.6s ease both;
+    overflow: hidden;
+  }
+
+  .chapter-tablet:nth-child(1) { animation-delay: 0.05s; }
+  .chapter-tablet:nth-child(2) { animation-delay: 0.1s; }
+  .chapter-tablet:nth-child(3) { animation-delay: 0.15s; }
+  .chapter-tablet:nth-child(4) { animation-delay: 0.2s; }
+  .chapter-tablet:nth-child(5) { animation-delay: 0.25s; }
+  .chapter-tablet:nth-child(6) { animation-delay: 0.3s; }
+  .chapter-tablet:nth-child(7) { animation-delay: 0.35s; }
+  .chapter-tablet:nth-child(8) { animation-delay: 0.4s; }
+  .chapter-tablet:nth-child(9) { animation-delay: 0.45s; }
+  .chapter-tablet:nth-child(10) { animation-delay: 0.5s; }
+
+  /* Random crack per tablet */
+  .chapter-tablet::before {
+    content: '';
+    position: absolute;
+    background: rgba(0,0,0,0.35);
+    pointer-events: none;
+  }
+
+  .chapter-tablet:nth-child(odd)::before {
+    top: 10%; right: 15%;
+    width: 1px; height: 60%;
+    transform: rotate(-3deg);
+  }
+
+  .chapter-tablet:nth-child(even)::before {
+    bottom: 10%; left: 20%;
+    width: 45%; height: 1px;
+    transform: rotate(1deg);
+  }
+
+  .chapter-tablet:hover {
+    border-color: var(--gold);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.6), 0 0 12px rgba(200,150,42,0.15);
+  }
+
+  .chapter-tablet.completed {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #3d2c12 0%, #2a1e08 60%, #362510 100%);
+  }
+
+  .chapter-tablet.completed::after {
+    content: '✦';
+    position: absolute;
+    top: 16px; right: 18px;
+    font-size: 1.1rem;
+    color: var(--gold-bright);
+    text-shadow: 0 0 10px var(--text-glow);
+  }
+
+  .chapter-tablet.locked {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .chapter-tablet.locked:hover {
+    border-color: var(--gold-dim);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .chapter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 0;
+  }
+
+  .chapter-num {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.5rem;
+    color: var(--gold-dim);
+    line-height: 1;
+    min-width: 36px;
+    text-shadow: 0 0 10px rgba(200,150,42,0.2);
+  }
+
+  .chapter-info { flex: 1; }
+
+  .chapter-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold-bright);
+    margin-bottom: 3px;
+    text-shadow: 0 0 15px rgba(200,150,42,0.3);
+    line-height: 1.3;
+  }
+
+  .chapter-date {
+    font-size: 0.75rem;
+    color: var(--gold-dim);
+    font-style: italic;
+  }
+
+  .chapter-expand {
+    display: none;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(200,150,42,0.2);
+    animation: expandIn 0.3s ease;
+  }
+
+  .chapter-expand.open { display: block; }
+
+  .reflection-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 14px;
+  }
+
+  .reflection-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .prompt-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .prompt-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .prompt-question {
+    font-size: 0.85rem;
+    color: var(--gold-pale);
+    font-style: italic;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid var(--gold-dim);
+    border-radius: 2px;
+    color: var(--gold-pale);
+    font-family: 'IM Fell English', serif;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    resize: vertical;
+    min-height: 70px;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  textarea::placeholder { color: var(--gold-dim); opacity: 0.5; font-style: italic; }
+  textarea:focus { border-color: var(--gold); }
+
+  .bonus-prompt {
+    margin-top: 10px;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-left: 2px solid var(--gold-dim);
+  }
+
+  .bonus-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .complete-btn {
+    width: 100%;
+    margin-top: 16px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    border: none;
+    color: var(--stone-dark);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .complete-btn:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+    box-shadow: 0 0 20px rgba(200,150,42,0.3);
+  }
+
+  .complete-btn.done {
+    background: linear-gradient(135deg, #4a7a3a, #5a9a48);
+    color: #e8f8e0;
+  }
+
+  /* ── FOOTER SEAL ── */
+  .footer-seal {
+    text-align: center;
+    margin-top: 60px;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .seal-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--gold-dim);
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .seal-ring::before {
+    content: '𒀭';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: var(--gold-dim);
+  }
+
+  .footer-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    opacity: 0.6;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: linear-gradient(135deg, #3a2510 0%, #221608 100%);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 36px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(200,150,42,0.3);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .modal-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.3rem;
+    color: var(--gold-bright);
+    text-shadow: 0 0 20px var(--text-glow);
+    margin-bottom: 10px;
+  }
+
+  .modal-body {
+    font-size: 0.9rem;
+    color: var(--gold-pale);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 22px;
+    opacity: 0.85;
+  }
+
+  .modal-close {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { border-color: var(--gold); background: rgba(200,150,42,0.1); }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandIn {
+    from { opacity: 0; transform: scaleY(0.95); transform-origin: top; }
+    to { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (max-width: 500px) {
+    .progress-grid { grid-template-columns: 1fr 1fr; }
+    .progress-grid .stat:last-child { grid-column: 1 / -1; }
+    .chapter-tablet { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-ornament">✦ &nbsp; A Reading Decree &nbsp; ✦</div>
+    <h1>The Richest Man<br>in Babylon</h1>
+    <div class="header-sub">Tablets of Ancient Wisdom</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line"></div>
+    </div>
+    <div style="font-size:0.85rem; color:var(--gold-dim); font-style:italic; opacity:0.75;">
+      May 25 — June 15, 2025 &nbsp;·&nbsp; One tablet every other day
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-tablet">
+    <div class="progress-grid">
+      <div class="stat">
+        <div class="stat-label">Tablets Read</div>
+        <div class="stat-value" id="chaptersRead">0</div>
+        <div class="stat-sub">of 10</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Days Remaining</div>
+        <div class="stat-value" id="daysLeft">—</div>
+        <div class="stat-sub">until June 15</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Journey</div>
+        <div class="stat-value" id="pctDone">0%</div>
+        <div class="stat-sub">complete</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap" style="margin-top:20px;">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">The journey begins</div>
+  </div>
+
+  <!-- CHAPTERS -->
+  <div class="section-title">✦ &nbsp; The Ten Tablets &nbsp; ✦</div>
+
+  <div class="chapter-list" id="chapterList"></div>
+
+  <!-- FOOTER -->
+  <div class="footer-seal">
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+    <div class="footer-text">Inscribed for the seeker of wisdom &nbsp;·&nbsp; Babylon, circa 2025 BC</div>
+  </div>
+</div>
+
+<!-- COMPLETION MODAL -->
+<div class="modal-overlay" id="completionModal">
+  <div class="modal-box">
+    <span class="modal-icon">✦</span>
+    <div class="modal-title">Tablet Sealed</div>
+    <div class="modal-body" id="modalBody">Well done. The ancient wisdom has been received.</div>
+    <button class="modal-close" onclick="closeModal()">Return to the Scroll</button>
+  </div>
+</div>
+
+<script>
+const CHAPTERS = [
+  { title: "The Man Who Desired Gold", date: "Monday, May 26" },
+  { title: "The Richest Man in Babylon", date: "Wednesday, May 28" },
+  { title: "Seven Cures for a Lean Purse", date: "Friday, May 30" },
+  { title: "Meet the Goddess of Good Luck", date: "Sunday, June 1" },
+  { title: "The Five Laws of Gold", date: "Tuesday, June 3" },
+  { title: "The Gold Lender of Babylon", date: "Thursday, June 5" },
+  { title: "The Walls of Babylon", date: "Saturday, June 7" },
+  { title: "The Camel Trader of Babylon", date: "Monday, June 9" },
+  { title: "The Clay Tablets from Babylon", date: "Wednesday, June 11" },
+  { title: "The Luckiest Man in Babylon", date: "Friday, June 13" },
+];
+
+const MILESTONES = {
+  1: "The first seal is broken. You have begun.",
+  3: "A third of the tablets read. Babylon smiles upon you.",
+  5: "Halfway. The wise seek more knowledge still.",
+  7: "Seven of ten. Your purse grows heavy with wisdom.",
+  10: "All ten tablets. The wealth of Babylon is yours to keep.",
+};
+
+const STORAGE_KEY = 'babylon_reading_v2';
+
+function load() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch { return {}; }
+}
+
+function save(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+let state = load();
+
+function getDeadline() {
+  return new Date('2025-06-16T00:00:00');
+}
+
+function daysLeft() {
+  const now = new Date();
+  const diff = getDeadline() - now;
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function updateStats() {
+  const completed = CHAPTERS.filter((_, i) => state[i]?.done).length;
+  const pct = Math.round((completed / 10) * 100);
+
+  document.getElementById('chaptersRead').textContent = completed;
+  document.getElementById('daysLeft').textContent = daysLeft();
+  document.getElementById('pctDone').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  const labels = [
+    "The journey begins",
+    "First steps into Babylon",
+    "Wisdom accumulates",
+    "The scribes take notice",
+    "Halfway to the treasure",
+    "The city opens its gates",
+    "Knowledge carved deep",
+    "The elders nod approvingly",
+    "Nearly complete",
+    "The final seal awaits",
+    "All tablets read. Well done."
+  ];
+  document.getElementById('progressLabel').textContent = labels[completed];
+}
+
+function toggleChapter(i) {
+  const tablet = document.getElementById('tablet-' + i);
+  const expand = document.getElementById('expand-' + i);
+  if (tablet.classList.contains('locked')) return;
+  expand.classList.toggle('open');
+}
+
+function markDone(i) {
+  const r1 = document.getElementById('r1-' + i).value.trim();
+  const r2 = document.getElementById('r2-' + i).value.trim();
+  const r3 = document.getElementById('r3-' + i).value.trim();
+  const bonus = document.getElementById('rb-' + i).value.trim();
+
+  if (!r1 || !r2 || !r3) {
+    showModal('⚠', 'The Tablet Demands More', 'All three reflections must be inscribed before the seal can be set. Write with honesty and care.');
+    return;
+  }
+
+  state[i] = { done: true, r1, r2, r3, bonus };
+  save(state);
+
+  const tablet = document.getElementById('tablet-' + i);
+  tablet.classList.add('completed');
+
+  const btn = document.getElementById('btn-' + i);
+  btn.textContent = 'Sealed ✦';
+  btn.classList.add('done');
+
+  const completed = CHAPTERS.filter((_, j) => state[j]?.done).length;
+  const milestone = MILESTONES[completed];
+
+  if (milestone) {
+    showModal('✦', completed === 10 ? 'All Tablets Complete' : 'Tablet Sealed', milestone);
+  } else {
+    showModal('✦', 'Tablet Sealed', 'The ancient scribe records your words. Proceed to the next tablet when you are ready.');
+  }
+
+  updateStats();
+}
+
+function showModal(icon, title, body) {
+  document.querySelector('.modal-icon').textContent = icon;
+  document.querySelector('.modal-title').textContent = title;
+  document.getElementById('modalBody').textContent = body;
+  document.getElementById('completionModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('completionModal').classList.remove('open');
+}
+
+function buildChapters() {
+  const list = document.getElementById('chapterList');
+  CHAPTERS.forEach((ch, i) => {
+    const isDone = !!state[i]?.done;
+    const isLocked = false; // all unlocked — she can read ahead
+
+    const el = document.createElement('div');
+    el.className = 'chapter-tablet' + (isDone ? ' completed' : '') + (isLocked ? ' locked' : '');
+    el.id = 'tablet-' + i;
+
+    const savedR1 = state[i]?.r1 || '';
+    const savedR2 = state[i]?.r2 || '';
+    const savedR3 = state[i]?.r3 || '';
+    const savedBonus = state[i]?.bonus || '';
+    const btnClass = isDone ? 'complete-btn done' : 'complete-btn';
+    const btnText = isDone ? 'Sealed ✦' : 'Seal This Tablet';
+
+    el.innerHTML = `
+      <div class="chapter-header" onclick="toggleChapter(${i})">
+        <div class="chapter-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="chapter-info">
+          <div class="chapter-title">${ch.title}</div>
+          <div class="chapter-date">Due: ${ch.date}</div>
+        </div>
+      </div>
+      <div class="chapter-expand" id="expand-${i}">
+        <div class="reflection-title">✦ &nbsp; Inscribe Your Reflections &nbsp; ✦</div>
+        <div class="reflection-prompts">
+          <div class="prompt-block">
+            <div class="prompt-label">I — The Lesson</div>
+            <div class="prompt-question">What was the main teaching of this tablet? Summarize it in your own words — 2 to 3 sentences.</div>
+            <textarea id="r1-${i}" placeholder="Write the lesson here...">${savedR1}</textarea>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-label">II — What Hit You</div>
+            <div class="prompt-question">What one thing surprised you, challenged you, or stuck with you — and why? Don't just say what it was. Explain why it landed.</div>
+            <textarea id="r2-${i}" placeholder="Write what hit you and why...">${savedR2}</textarea>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-label">III — Your Life</div>
+            <div class="prompt-question">How does this apply to your actual life right now? What would you do differently — even something small?</div>
+            <textarea id="r3-${i}" placeholder="Connect it to your life...">${savedR3}</textarea>
+          </div>
+        </div>
+        <div class="bonus-prompt">
+          <div class="bonus-label">⚡ Bonus (optional)</div>
+          <div class="prompt-question" style="font-size:0.8rem;">Is there anything you disagreed with, doubted, or thought was unrealistic? Push back if you want to.</div>
+          <textarea id="rb-${i}" placeholder="Challenge the ancient wisdom if you dare..." style="min-height:55px;">${savedBonus}</textarea>
+        </div>
+        <button class="${btnClass}" id="btn-${i}" onclick="markDone(${i})">${btnText}</button>
+      </div>
+    `;
+
+    list.appendChild(el);
+  });
+}
+
+buildChapters();
+updateStats();
+
+document.getElementById('completionModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
